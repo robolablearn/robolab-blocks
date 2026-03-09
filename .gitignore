@@ -22,7 +22,7 @@ common.pyc
 LICENSE.chromedriver
 
 /accessible/*
-/dist
+# /dist
 /msg/js/*
 !/msg/js/en.js
 /msg/json/*
