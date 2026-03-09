@@ -43,25 +43,32 @@ Blockly.Arduino['control_repeat'] = function(block) {
 };
 
 Blockly.Arduino['control_forever'] = function(block) {
-  if (Blockly.Arduino.firstLoop && !block.getSurroundParent()
-    && block.getRootBlock().type === 'event_whenarduinobegin') {
-    Blockly.Arduino.firstLoop = false;
+  var isTopLevel = !block.getSurroundParent();
 
-    var branch = Blockly.Arduino.statementToCode(block, 'SUBSTACK');
-    branch = Blockly.Arduino.addLoopTrap(branch, block.id);
-    var code = "}\n\n";
-    code += "void loop() {\n";
-    code += branch;
-    code += Blockly.Arduino.INDENT + "repeat();\n";
-    return code;
-  } else {
-    var branch = Blockly.Arduino.statementToCode(block, 'SUBSTACK');
-    branch = Blockly.Arduino.addLoopTrap(branch, block.id);
-    var code = "while (1) {\n";
-    code += branch;
-    code += Blockly.Arduino.INDENT + "repeat();\n}\n";
-    return code;
+  var branch = Blockly.Arduino.statementToCode(block, 'SUBSTACK');
+  branch = Blockly.Arduino.addLoopTrap(branch, block.id);
+
+  if (isTopLevel) {
+    if (Blockly.Arduino.firstLoop) {
+      Blockly.Arduino.firstLoop = false;
+      var code = "}\n\n";
+      code += "void loop() {\n";
+      code += branch;
+      code += Blockly.Arduino.INDENT + "repeat();\n";
+      return code;
+    }
+
+    // Additional forever blocks should also run inside loop()
+    var loopKey = 'control_forever_' + block.id;
+    var loopBranch = branch.replace(/\s+$/, '');
+    Blockly.Arduino.loops_[loopKey] = loopBranch;
+    return '';
   }
+
+  var code = "while (1) {\n";
+  code += branch;
+  code += Blockly.Arduino.INDENT + "repeat();\n}\n";
+  return code;
 };
 
 Blockly.Arduino['control_if'] = function(block) {

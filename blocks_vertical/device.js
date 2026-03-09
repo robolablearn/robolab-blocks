@@ -44,6 +44,24 @@ Blockly.Blocks['event_whenarduinobegin'] = {
   }
 };
 
+Blockly.Blocks['event_whenmieostartsup'] = {
+  /**
+   * Block for when Mieo starts up.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "event_whenmieostartsup",
+      "message0": "when Mieo starts up",
+      "nextStatement": null,
+      "category": Blockly.Categories.event,
+      "colour": Blockly.Colours.event.primary,
+      "colourSecondary": Blockly.Colours.event.secondary,
+      "colourTertiary": Blockly.Colours.event.tertiary
+    });
+  }
+};
+
 Blockly.Blocks['event_whenmicropythonbegin'] = {
   /**
    * Block for when arduino begin.

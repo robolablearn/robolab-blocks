@@ -82,6 +82,11 @@ Blockly.Colours = {
     "secondary": "#FF4D6A",
     "tertiary": "#FF3355"
   },
+  "mieo": {
+    "primary": "#FF6B6B",
+    "secondary": "#FF5252",
+    "tertiary": "#FF4040"
+  },
   "text": "#575E75",
   "workspace": "#F9F9F9",
   "toolboxHover": "#4C97FF",
