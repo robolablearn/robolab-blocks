@@ -44,20 +44,33 @@ Blockly.Blocks['event_whenarduinobegin'] = {
   }
 };
 
-Blockly.Blocks['event_whenmieostartsup'] = {
+Blockly.Blocks['matrix7x5'] = {
   /**
-   * Block for when Mieo starts up.
+   * Shadow block holding a 7x5 painted pattern, matching the Mieo LED panel.
+   *
+   * FieldMatrixColor takes its dimensions from the json, and paints a palette
+   * index per cell so the panel's colours are usable. The stock shadows ship
+   * 5x5 and 12x8 on/off grids -- neither matches the panel, hence this one. The default pattern is NOT set here: Blockly.Field's constructor calls
+   * setValue() before FieldMatrix has assigned width_/height_/zeros_, so a
+   * "matrix" key here throws and takes the whole flyout down with it. The
+   * default is supplied as the block argument's defaultValue instead, which
+   * Blockly applies as a <field> after the block is constructed.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "id": "event_whenmieostartsup",
-      "message0": "when Mieo starts up",
-      "nextStatement": null,
-      "category": Blockly.Categories.event,
-      "colour": Blockly.Colours.event.primary,
-      "colourSecondary": Blockly.Colours.event.secondary,
-      "colourTertiary": Blockly.Colours.event.tertiary
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_matrix_color",
+          "name": "MATRIX",
+          "width": 7,
+          "height": 5
+        }
+      ],
+      "outputShape": Blockly.OUTPUT_SHAPE_ROUND,
+      "output": "String",
+      "extensions": ["colours_pen"]
     });
   }
 };

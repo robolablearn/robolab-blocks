@@ -18,26 +18,6 @@
  */
 'use strict';
 
-goog.provide('Blockly.Python.matrix');
+goog.provide('Blockly.Python.microPython');
 
 goog.require('Blockly.Python');
-
-
-Blockly.Python['matrix'] = function(block) {
-  // Numeric value.
-  var code = block.getFieldValue('MATRIX');
-  if (isNaN(code)) {
-    code = 0;
-  }
-  return [code, Blockly.Python.ORDER_ATOMIC];
-};
-
-/**
- * The 7x5 Mieo panel painter. Unlike 'matrix' above this returns a quoted
- * string: the value is 35 '0'/'1' characters, and python reads an unquoted
- * "0110110..." as a number literal with leading zeros, which is a syntax error.
- */
-Blockly.Python['matrix7x5'] = function(block) {
-  var code = block.getFieldValue('MATRIX') || '';
-  return [Blockly.Python.quote_(code), Blockly.Python.ORDER_ATOMIC];
-};

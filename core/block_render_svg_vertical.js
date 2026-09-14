@@ -518,6 +518,13 @@ Blockly.BlockSvg.prototype.updateColour = function() {
     }
   }
 
+  // A disabled block renders grey, so it is obvious at a glance that it
+  // will not run. Blockly already refuses to drag disabled blocks out of
+  // the flyout, but without this they look exactly like working blocks.
+  if (this.disabled && Blockly.Colours.disabled) {
+    strokeColour = Blockly.Colours.disabled.tertiary;
+  }
+
   // Render block stroke
   this.svgPath_.setAttribute('stroke', strokeColour);
 
@@ -531,6 +538,10 @@ Blockly.BlockSvg.prototype.updateColour = function() {
     }
   } else {
     var fillColour = this.getColour();
+  }
+  if (this.disabled && Blockly.Colours.disabled) {
+    fillColour = this.isShadow() ?
+        Blockly.Colours.disabled.secondary : Blockly.Colours.disabled.primary;
   }
   this.svgPath_.setAttribute('fill', fillColour);
 

@@ -26,7 +26,12 @@ goog.require('Blockly.Python');
 Blockly.Python['control_wait'] = function(block) {
   var arg0 = Blockly.Python.valueToCode(block, 'DURATION',
       Blockly.Python.ORDER_FUNCTION_CALL);
-  var code = "sleep(" + arg0 + " * 1000" + ")\n";
+  // The Mieo board gets its sleep from the mieo library rather than a helper
+  // written into the generated program, so it needs the module prefix. Every
+  // other board has a bare sleep() in scope.
+  var call = block.getRootBlock().type === 'microPython_mieo_whenMieoStartsUp' ?
+      "mieo.sleep(" : "sleep(";
+  var code = call + arg0 + " * 1000" + ")\n";
   return code;
 };
 
@@ -52,7 +57,10 @@ Blockly.Python['control_forever'] = function(block) {
   var code = "while True:\n";
   code += branch;
 
-  if (block.getRootBlock().type === 'event_whenmicrobitbegin') {
+  // Every hat that carries the main program, not just micro:bit's: a loop
+  // under any of them has to keep calling repeat(), or the sensor-hat poll
+  // that finish() appends afterwards is unreachable.
+  if (Blockly.Python.MAIN_HATS_.indexOf(block.getRootBlock().type) >= 0) {
     Blockly.Python.firstLoop = false;
     code += Blockly.Python.INDENT + "repeat()\n";
   }
@@ -102,7 +110,10 @@ Blockly.Python['control_wait_until'] = function(block) {
   var argument = Blockly.Python.valueToCode(block, 'CONDITION',
       Blockly.Python.ORDER_UNARY_POSTFIX) || 'False';
   var code = "while not " + argument + ":\n";
-  if (block.getRootBlock().type === 'event_whenmicrobitbegin') {
+  // Every hat that carries the main program, not just micro:bit's: a loop
+  // under any of them has to keep calling repeat(), or the sensor-hat poll
+  // that finish() appends afterwards is unreachable.
+  if (Blockly.Python.MAIN_HATS_.indexOf(block.getRootBlock().type) >= 0) {
     code += Blockly.Python.INDENT + "repeat()\n";
   }
   return code;
@@ -117,7 +128,10 @@ Blockly.Python['control_repeat_until'] = function(block) {
 
   var code = "while not " + argument + ":\n";
   code += branch;
-  if (block.getRootBlock().type === 'event_whenmicrobitbegin') {
+  // Every hat that carries the main program, not just micro:bit's: a loop
+  // under any of them has to keep calling repeat(), or the sensor-hat poll
+  // that finish() appends afterwards is unreachable.
+  if (Blockly.Python.MAIN_HATS_.indexOf(block.getRootBlock().type) >= 0) {
     code += Blockly.Python.INDENT + "repeat()\n";
   }
   return code;
