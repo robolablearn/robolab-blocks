@@ -90,7 +90,7 @@ var Blockly={};Blockly.Blocks=Object(null);/*
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-Blockly.Colours={motion:{primary:"#4C97FF",secondary:"#4280D7",tertiary:"#3373CC"},looks:{primary:"#9966FF",secondary:"#855CD6",tertiary:"#774DCB"},sounds:{primary:"#CF63CF",secondary:"#C94FC9",tertiary:"#BD42BD"},control:{primary:"#FFAB19",secondary:"#EC9C13",tertiary:"#CF8B17"},event:{primary:"#FFBF00",secondary:"#E6AC00",tertiary:"#CC9900"},sensing:{primary:"#5CB1D6",secondary:"#47A8D1",tertiary:"#2E8EB8"},pen:{primary:"#0fBD8C",secondary:"#0DA57A",tertiary:"#0B8E69"},operators:{primary:"#59C059",
+Blockly.Colours={disabled:{primary:"#BDBDBD",secondary:"#AEAEAE",tertiary:"#9E9E9E"},motion:{primary:"#4C97FF",secondary:"#4280D7",tertiary:"#3373CC"},looks:{primary:"#9966FF",secondary:"#855CD6",tertiary:"#774DCB"},sounds:{primary:"#CF63CF",secondary:"#C94FC9",tertiary:"#BD42BD"},control:{primary:"#FFAB19",secondary:"#EC9C13",tertiary:"#CF8B17"},event:{primary:"#FFBF00",secondary:"#E6AC00",tertiary:"#CC9900"},sensing:{primary:"#5CB1D6",secondary:"#47A8D1",tertiary:"#2E8EB8"},pen:{primary:"#0fBD8C",secondary:"#0DA57A",tertiary:"#0B8E69"},operators:{primary:"#59C059",
 secondary:"#46B946",tertiary:"#389438"},data:{primary:"#FF8C1A",secondary:"#FF8000",tertiary:"#DB6E00"},data_lists:{primary:"#FF661A",secondary:"#FF5500",tertiary:"#E64D00"},more:{primary:"#FF6680",secondary:"#FF4D6A",tertiary:"#FF3355"},text:"#575E75",workspace:"#F9F9F9",toolboxHover:"#4C97FF",toolboxSelected:"#e9eef2",toolboxText:"#575E75",toolbox:"#FFFFFF",flyout:"#F9F9F9",scrollbar:"#CECDCE",scrollbarHover:"#CECDCE",textField:"#FFFFFF",insertionMarker:"#000000",insertionMarkerOpacity:.2,dragShadowOpacity:.3,
 stackGlow:"#FFF200",stackGlowSize:4,stackGlowOpacity:1,replacementGlow:"#FFFFFF",replacementGlowSize:2,replacementGlowOpacity:1,colourPickerStroke:"#FFFFFF",fieldShadow:"rgba(0,0,0,0.1)",dropDownShadow:"rgba(0, 0, 0, .3)",numPadBackground:"#547AB2",numPadBorder:"#435F91",numPadActiveBackground:"#435F91",numPadText:"white",valueReportBackground:"#FFFFFF",valueReportBorder:"#AAAAAA"};
 Blockly.Colours.overrideColours=function(a){if(a)for(var b in a)if(a.hasOwnProperty(b)&&Blockly.Colours.hasOwnProperty(b)){var c=a[b];if(goog.isObject(c))for(var d in c)c.hasOwnProperty(d)&&Blockly.Colours[b].hasOwnProperty(d)&&(Blockly.Colours[b][d]=c[d]);else Blockly.Colours[b]=c}};goog.debug={};goog.debug.Error=function(a){if(Error.captureStackTrace)Error.captureStackTrace(this,goog.debug.Error);else{var b=Error().stack;b&&(this.stack=b)}a&&(this.message=String(a));this.reportErrorToServer=!0};goog.inherits(goog.debug.Error,Error);goog.debug.Error.prototype.name="CustomError";goog.dom={};goog.dom.NodeType={ELEMENT:1,ATTRIBUTE:2,TEXT:3,CDATA_SECTION:4,ENTITY_REFERENCE:5,ENTITY:6,PROCESSING_INSTRUCTION:7,COMMENT:8,DOCUMENT:9,DOCUMENT_TYPE:10,DOCUMENT_FRAGMENT:11,NOTATION:12};goog.asserts={};goog.asserts.ENABLE_ASSERTS=goog.DEBUG;goog.asserts.AssertionError=function(a,b){goog.debug.Error.call(this,goog.asserts.subs_(a,b));this.messagePattern=a};goog.inherits(goog.asserts.AssertionError,goog.debug.Error);goog.asserts.AssertionError.prototype.name="AssertionError";goog.asserts.DEFAULT_ERROR_HANDLER=function(a){throw a;};goog.asserts.errorHandler_=goog.asserts.DEFAULT_ERROR_HANDLER;
@@ -1510,8 +1510,8 @@ Blockly.BlockSvg.FIELD_TEXTINPUT_FONTSIZE_INITIAL=12;Blockly.BlockSvg.FIELD_TEXT
 Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING={1:{0:5*Blockly.BlockSvg.GRID_UNIT,1:2*Blockly.BlockSvg.GRID_UNIT,2:5*Blockly.BlockSvg.GRID_UNIT,3:5*Blockly.BlockSvg.GRID_UNIT},2:{0:3*Blockly.BlockSvg.GRID_UNIT,1:3*Blockly.BlockSvg.GRID_UNIT,2:1*Blockly.BlockSvg.GRID_UNIT,3:2*Blockly.BlockSvg.GRID_UNIT},3:{0:2*Blockly.BlockSvg.GRID_UNIT,1:2*Blockly.BlockSvg.GRID_UNIT,2:2*Blockly.BlockSvg.GRID_UNIT,3:2*Blockly.BlockSvg.GRID_UNIT}};Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS=5*Blockly.BlockSvg.GRID_UNIT;
 Blockly.BlockSvg.TOP_LEFT_CORNER_DEFINE_HAT="a "+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+","+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+" 0 0,1 "+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+",-"+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS;Blockly.BlockSvg.TOP_RIGHT_CORNER_DEFINE_HAT="a "+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+","+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+" 0 0,1 "+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS+","+Blockly.BlockSvg.DEFINE_HAT_CORNER_RADIUS;
 Blockly.BlockSvg.DEFINE_BLOCK_PADDING_RIGHT=2*Blockly.BlockSvg.GRID_UNIT;
-Blockly.BlockSvg.prototype.updateColour=function(){var a=this.getColourTertiary(),b=this.isShadow()&&!Blockly.scratchBlocksUtils.isShadowArgumentReporter(this);b&&this.parentBlock_&&(a=this.parentBlock_.getColourTertiary(),this.inputList[0]&&this.inputList[0].fieldRow[0]&&(this.inputList[0].fieldRow[0]instanceof Blockly.FieldColour||this.inputList[0].fieldRow[0]instanceof Blockly.FieldColourSlider)&&(a=Blockly.Colours.colourPickerStroke));this.svgPath_.setAttribute("stroke",a);a=this.isGlowingBlock_||
-b?this.getShadowColour()?this.getShadowColour():this.getColourSecondary():this.getColour();this.svgPath_.setAttribute("fill",a);this.svgPath_.setAttribute("fill-opacity",this.getOpacity());for(b=0;a=this.inputList[b];b++)a.outlinePath&&a.outlinePath.setAttribute("fill",this.getColourTertiary());a=this.getIcons();for(b=0;b<a.length;b++)a[b].updateColour();for(b=0;a=this.inputList[b];b++)for(var c=0,d;d=a.fieldRow[c];c++)d.setText(null),d.updateColour()};
+Blockly.BlockSvg.prototype.updateColour=function(){var a=this.getColourTertiary(),b=this.isShadow()&&!Blockly.scratchBlocksUtils.isShadowArgumentReporter(this);b&&this.parentBlock_&&(a=this.parentBlock_.getColourTertiary(),this.inputList[0]&&this.inputList[0].fieldRow[0]&&(this.inputList[0].fieldRow[0]instanceof Blockly.FieldColour||this.inputList[0].fieldRow[0]instanceof Blockly.FieldColourSlider)&&(a=Blockly.Colours.colourPickerStroke));this.disabled&&Blockly.Colours.disabled&&(a=Blockly.Colours.disabled.tertiary);this.svgPath_.setAttribute("stroke",a);a=this.isGlowingBlock_||
+b?this.getShadowColour()?this.getShadowColour():this.getColourSecondary():this.getColour();this.disabled&&Blockly.Colours.disabled&&(a=b?Blockly.Colours.disabled.secondary:Blockly.Colours.disabled.primary);this.svgPath_.setAttribute("fill",a);this.svgPath_.setAttribute("fill-opacity",this.getOpacity());for(b=0;a=this.inputList[b];b++)a.outlinePath&&a.outlinePath.setAttribute("fill",this.getColourTertiary());a=this.getIcons();for(b=0;b<a.length;b++)a[b].updateColour();for(b=0;a=this.inputList[b];b++)for(var c=0,d;d=a.fieldRow[c];c++)d.setText(null),d.updateColour()};
 Blockly.BlockSvg.prototype.highlightForReplacement=function(a){a?(this.svgPath_.setAttribute("filter","url(#"+(this.workspace.options.replacementGlowFilterId||"blocklyReplacementGlowFilter")+")"),Blockly.utils.addClass(this.svgGroup_,"blocklyReplaceable")):(this.svgPath_.removeAttribute("filter"),Blockly.utils.removeClass(this.svgGroup_,"blocklyReplaceable"))};
 Blockly.BlockSvg.prototype.highlightShapeForInput=function(a,b){a=this.getInputWithConnection(a);if(!a)throw"No input found for the connection";a.outlinePath&&(b?(a.outlinePath.setAttribute("filter","url(#"+(this.workspace.options.replacementGlowFilterId||"blocklyReplacementGlowFilter")+")"),Blockly.utils.addClass(this.svgGroup_,"blocklyReplaceable")):(a.outlinePath.removeAttribute("filter"),Blockly.utils.removeClass(this.svgGroup_,"blocklyReplaceable")))};
 Blockly.BlockSvg.prototype.getHeightWidth=function(){var a=this.height,b=this.width,c=this.getNextBlock();c&&(c=c.getHeightWidth(),a+=c.height,a-=Blockly.BlockSvg.NOTCH_HEIGHT,b=Math.max(b,c.width));return{height:a,width:b}};
@@ -2035,7 +2035,7 @@ Blockly.FlyoutExtensionCategoryHeader.prototype.createDom=function(){this.svgGro
 Blockly.utils.createSvgElement("rect",{"class":"blocklyTouchTargetBackground",height:"62px",width:"62px",x:a-16+"px",y:"-11px"},this.svgGroup_),this.setImageSrc(this.imageSrc_));this.callback_=Blockly.statusButtonCallback.bind(this,this.extensionId);this.mouseUpWrapper_=Blockly.bindEventWithChecks_(this.imageElementBackground_,"mouseup",this,this.onMouseUp_);return this.svgGroup_};
 Blockly.FlyoutExtensionCategoryHeader.prototype.refreshStatus=function(){var a=Blockly.FlyoutExtensionCategoryHeader.getExtensionState(this.extensionId),b=Blockly.mainWorkspace.options.pathToMedia;a==Blockly.StatusButtonState.READY&&this.setImageSrc(b+"status-ready.svg");a==Blockly.StatusButtonState.NOT_READY&&this.setImageSrc(b+"status-not-ready.svg")};
 Blockly.FlyoutExtensionCategoryHeader.prototype.setImageSrc=function(a){null!==a&&(this.imageSrc_=a,this.imageElement_&&this.imageElement_.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href",this.imageSrc_||""))};Blockly.FlyoutExtensionCategoryHeader.getExtensionState=function(){return Blockly.StatusButtonState.NOT_READY};Blockly.Flyout=function(a){a.getMetrics=this.getMetrics_.bind(this);a.setMetrics=this.setMetrics_.bind(this);this.workspace_=new Blockly.WorkspaceSvg(a);this.workspace_.isFlyout=!0;var b=this.workspace_.newBlock;this.workspace_.newBlock=function(a,d){return b.call(this,a,d||a)};this.RTL=!!a.RTL;this.horizontalLayout_=a.horizontalLayout;this.toolboxPosition_=a.toolboxPosition;this.eventWrappers_=[];this.backgroundButtons_=[];this.buttons_=[];this.listeners_=[];this.blockContents_=[];this.permanentlyDisabled_=
-[];this.scrollTarget=this.parentToolbox_=null;this.recycleBlocks_=[];this.deviceTypeList_=["microbit","arduino"]};Blockly.Flyout.prototype.autoClose=!1;Blockly.Flyout.prototype.isVisible_=!1;Blockly.Flyout.prototype.containerVisible_=!0;Blockly.Flyout.prototype.CORNER_RADIUS=0;Blockly.Flyout.prototype.MARGIN=12;Blockly.Flyout.prototype.GAP_X=3*Blockly.Flyout.prototype.MARGIN;Blockly.Flyout.prototype.GAP_Y=Blockly.Flyout.prototype.MARGIN;Blockly.Flyout.prototype.SCROLLBAR_PADDING=2;
+[];this.scrollTarget=this.parentToolbox_=null;this.recycleBlocks_=[];this.deviceTypeList_=["microbit","arduino","microPython"]};Blockly.Flyout.prototype.autoClose=!1;Blockly.Flyout.prototype.isVisible_=!1;Blockly.Flyout.prototype.containerVisible_=!0;Blockly.Flyout.prototype.CORNER_RADIUS=0;Blockly.Flyout.prototype.MARGIN=12;Blockly.Flyout.prototype.GAP_X=3*Blockly.Flyout.prototype.MARGIN;Blockly.Flyout.prototype.GAP_Y=Blockly.Flyout.prototype.MARGIN;Blockly.Flyout.prototype.SCROLLBAR_PADDING=2;
 Blockly.Flyout.prototype.width_=0;Blockly.Flyout.prototype.height_=0;Blockly.Flyout.prototype.contentWidth_=0;Blockly.Flyout.prototype.contentHeight_=0;Blockly.Flyout.prototype.verticalOffset_=0;Blockly.Flyout.prototype.dragAngleRange_=70;Blockly.Flyout.prototype.scrollAnimationFraction=.3;Blockly.Flyout.prototype.recyclingEnabled_=!0;
 Blockly.Flyout.prototype.createDom=function(a){this.svgGroup_=Blockly.utils.createSvgElement(a,{"class":"blocklyFlyout",style:"display: none"},null);this.svgBackground_=Blockly.utils.createSvgElement("path",{"class":"blocklyFlyoutBackground"},this.svgGroup_);this.svgGroup_.appendChild(this.workspace_.createDom());return this.svgGroup_};
 Blockly.Flyout.prototype.init=function(a){this.targetWorkspace_=a;this.workspace_.targetWorkspace=a;this.scrollbar_=new Blockly.Scrollbar(this.workspace_,this.horizontalLayout_,!1,"blocklyFlyoutScrollbar");this.position();Array.prototype.push.apply(this.eventWrappers_,Blockly.bindEventWithChecks_(this.svgGroup_,"wheel",this,this.wheel_));Array.prototype.push.apply(this.eventWrappers_,Blockly.bindEventWithChecks_(this.svgGroup_,"mousedown",this,this.onMouseDown_));this.workspace_.getGesture=this.targetWorkspace_.getGesture.bind(this.targetWorkspace_);
@@ -2045,7 +2045,7 @@ Blockly.Flyout.prototype.getWidth=function(){return this.DEFAULT_WIDTH};Blockly.
 Blockly.Flyout.prototype.setContainerVisible=function(a){var b=a!=this.containerVisible_;this.containerVisible_=a;b&&this.updateDisplay_()};Blockly.Flyout.prototype.updateDisplay_=function(){var a=this.containerVisible_?this.isVisible():!1;this.svgGroup_.style.display=a?"block":"none";this.scrollbar_.setContainerVisible(a)};
 Blockly.Flyout.prototype.hide=function(){if(this.isVisible()){this.setVisible(!1);for(var a=0,b;b=this.listeners_[a];a++)Blockly.unbindEvent_(b);this.listeners_.length=0;this.reflowWrapper_&&(this.workspace_.removeChangeListener(this.reflowWrapper_),this.reflowWrapper_=null)}};
 Blockly.Flyout.prototype.show=function(a){this.workspace_.setResizesEnabled(!1);this.hide();this.clearOldBlocks_();this.setVisible(!0);var b=[],c=[];this.permanentlyDisabled_.length=0;for(var d=this.blockContents_.length=0,e;e=a[d];d++){if("string"===typeof e){var f=this.workspace_.targetWorkspace.getToolboxCategoryCallback(a[d])(this.workspace_.targetWorkspace);a.splice.apply(a,[d,1].concat(f));e=a[d]}if(e.tagName){var g=e.tagName.toUpperCase();f=this.horizontalLayout_?this.GAP_X:this.GAP_Y;if("BLOCK"==
-g){var h=e.getAttribute("id")||e.getAttribute("type");g=this.recycleBlocks_.findIndex(function(a){return a.id===h});this.deviceTypeList_.includes(e.getAttribute("type").split("_")[0])&&(g=-1);g=-1<g?this.recycleBlocks_.splice(g,1)[0]:Blockly.Xml.domToBlock(e,this.workspace_);g.disabled&&this.permanentlyDisabled_.push(g);this.blockContents_=this.blockContents_.concat(g.getDescendants());b.push({type:"block",block:g});e=parseInt(e.getAttribute("gap"),10);c.push(isNaN(e)?f:e)}else if("SEP"==e.tagName.toUpperCase())e=
+g){var h=e.getAttribute("id")||e.getAttribute("type");g=this.recycleBlocks_.findIndex(function(a){return a.id===h});this.deviceTypeList_.includes(e.getAttribute("type").split("_")[0])&&(g=-1);if(-1<g){var mieoDis=e.getAttribute("disabled"),mieoWant="true"==mieoDis||"disabled"==mieoDis;if(!!this.recycleBlocks_[g].disabled!==mieoWant)g=-1}g=-1<g?this.recycleBlocks_.splice(g,1)[0]:Blockly.Xml.domToBlock(e,this.workspace_);g.disabled&&this.permanentlyDisabled_.push(g);this.blockContents_=this.blockContents_.concat(g.getDescendants());b.push({type:"block",block:g});e=parseInt(e.getAttribute("gap"),10);c.push(isNaN(e)?f:e)}else if("SEP"==e.tagName.toUpperCase())e=
 parseInt(e.getAttribute("gap"),10),!isNaN(e)&&0<c.length?c[c.length-1]=e:c.push(f);else if("LABEL"==g&&"true"==e.getAttribute("showStatusButton"))e=new Blockly.FlyoutExtensionCategoryHeader(this.workspace_,this.targetWorkspace_,e),b.push({type:"button",button:e}),c.push(f);else if("BUTTON"==g||"LABEL"==g)e=new Blockly.FlyoutButton(this.workspace_,this.targetWorkspace_,e,"LABEL"==g),b.push({type:"button",button:e}),c.push(f)}}this.emptyRecycleBlocks_();this.layout_(b,c);this.listeners_.push(Blockly.bindEvent_(this.svgBackground_,
 "mouseover",this,function(){for(var a=this.workspace_.getTopBlocks(!1),b=0,c;c=a[b];b++)c.removeSelect()}));this.workspace_.setResizesEnabled(!0);this.reflow();this.position();this.reflowWrapper_=this.reflow.bind(this);this.workspace_.addChangeListener(this.reflowWrapper_);this.recordCategoryScrollPositions_()};Blockly.Flyout.prototype.emptyRecycleBlocks_=function(){var a=this.recycleBlocks_;this.recycleBlocks_=[];for(var b=0;b<a.length;b++)a[b].dispose(!1,!1)};
 Blockly.Flyout.prototype.recordCategoryScrollPositions_=function(){this.categoryScrollPositions=[];for(var a=0;a<this.buttons_.length;a++)if(this.buttons_[a].getIsCategoryLabel()){var b=this.buttons_[a];this.categoryScrollPositions.push({categoryName:b.getText(),position:this.horizontalLayout_?b.getPosition().x:b.getPosition().y})}b=this.categoryScrollPositions.length;if(0<b){for(a=0;a<b-1;a++)this.categoryScrollPositions[a].length=this.categoryScrollPositions[a+1].position-this.categoryScrollPositions[a].position;
@@ -2307,3 +2307,375 @@ Blockly.defineBlocksWithJsonArray=function(a){for(var b=0;b<a.length;b++){var c=
 Blockly.bindEventWithChecks_=function(a,b,c,d,e,f){var g=!1,h=function(a){var b=!e;a=Blockly.Touch.splitEventByTouches(a);for(var f=0,h;h=a[f];f++)if(!b||Blockly.Touch.shouldHandleEvent(h))Blockly.Touch.setClientFromTouch(h),c?d.call(c,h):d(h),g=!0};a.addEventListener(b,h,!1);var k=[[a,b,h]];if(b in Blockly.Touch.TOUCH_MAP)for(var m=function(a){h(a);var b=!f;g&&b&&a.preventDefault()},l=0,n;n=Blockly.Touch.TOUCH_MAP[b][l];l++)a.addEventListener(n,m,!1),k.push([a,n,m]);return k};
 Blockly.bindEvent_=function(a,b,c,d){var e=function(a){c?d.call(c,a):d(a)};a.addEventListener(b,e,!1);var f=[[a,b,e]];if(b in Blockly.Touch.TOUCH_MAP)for(var g=function(a){if(1==a.changedTouches.length){var b=a.changedTouches[0];a.clientX=b.clientX;a.clientY=b.clientY}e(a);a.preventDefault()},h=0,k;k=Blockly.Touch.TOUCH_MAP[b][h];h++)a.addEventListener(k,g,!1),f.push([a,k,g]);return f};Blockly.unbindEvent_=function(a){for(;a.length;){var b=a.pop(),c=b[2];b[0].removeEventListener(b[1],c,!1)}return c};
 Blockly.isNumber=function(a){return!!a.match(/^\s*-?\d+(\.\d+)?\s*$/)};goog.global.console||(goog.global.console={log:function(){},warn:function(){}});goog.global.Blockly||(goog.global.Blockly={});goog.global.Blockly.getMainWorkspace=Blockly.getMainWorkspace;
+
+// ---- Mieo: colour-per-pixel matrix painter (appended) ----
+/**
+ * A colour-per-pixel matrix painter.
+ *
+ * Blockly.FieldMatrix paints one bit per cell: on or off, one colour for the
+ * whole pattern. The Mieo panel is RGB, so this subclass keeps a palette index
+ * per cell instead. The value is still one character per cell, row-major from
+ * the top left, so everything that carries a matrix value -- project xml, the
+ * shadow block, the generators -- is unchanged. '0' is off and '1'-'9' index
+ * PALETTE, which means a pattern saved by the old on/off painter still loads:
+ * its '1's simply come back as palette colour 1.
+ *
+ * Almost everything is inherited. Only the parts that care about colour are
+ * overridden: how a cell is drawn, what a click paints, and the editor chrome.
+ */
+Blockly.FieldMatrixColor = function(matrix, width, height) {
+  Blockly.FieldMatrixColor.superClass_.constructor.call(this, matrix, width, height);
+  this.addArgType('matrixcolor');
+  this.selected_ = '1';
+  this.valueOnOpen_ = null;
+  this.paletteWrappers_ = [];
+  this.presetWrappers_ = [];
+  this.okWrapper_ = null;
+  this.cancelWrapper_ = null;
+};
+goog.inherits(Blockly.FieldMatrixColor, Blockly.FieldMatrix);
+
+Blockly.FieldMatrixColor.fromJson = function(options) {
+  return new Blockly.FieldMatrixColor(options['matrix'], options['width'], options['height']);
+};
+
+Blockly.FieldMatrixColor.PALETTE = [
+  '#C8C8C8', '#FFFFFF', '#FFC800', '#FF0000', '#FF00FF',
+  '#00FFFF', '#0000FF', '#00FF00', '#FF8C00', '#00A000'
+];
+
+Blockly.FieldMatrixColor.SWATCH_ORDER = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+Blockly.FieldMatrixColor.PRESETS = [
+  // Drawn as 5 rows of 7, then encoded -- typing 35 digits by hand is how
+  // an earlier set ended up misaligned.
+  '04404404444444044444000444000004000', // heart
+  '00060000066600066666000060000006000', // arrow
+  '00020002222222022222002202202000002', // star
+  '00000070000070700070007070000070000', // tick
+  '00050000055500055555000555000005000'  // gem
+];
+
+Blockly.FieldMatrixColor.LABEL_GUTTER = 14;
+
+Blockly.FieldMatrixColor.prototype.colourAt_ = function(index) {
+  var ch = this.matrix_.charAt(index);
+  var n = Number(ch);
+  if (isNaN(n) || !Blockly.FieldMatrixColor.PALETTE[n]) n = 0;
+  return Blockly.FieldMatrixColor.PALETTE[n];
+};
+
+Blockly.FieldMatrixColor.prototype.updateMatrix_ = function() {
+  if (!this.matrix_) return;
+  for (var i = 0; i < this.matrix_.length; i++) {
+    var colour = this.colourAt_(i);
+    this.fillMatrixNode_(this.ledButtons_, i, colour);
+    this.fillMatrixNode_(this.ledThumbNodes_, i, colour);
+  }
+};
+
+Blockly.FieldMatrixColor.prototype.setLEDNode_ = function(led, state) {
+  if (led < 0 || led > (this.width_ * this.height_ - 1)) return;
+  var matrix = this.matrix_.substr(0, led) + state + this.matrix_.substr(led + 1);
+  this.setValue(matrix);
+};
+
+Blockly.FieldMatrixColor.prototype.onMouseDown = function(e) {
+  this.matrixMoveWrapper_ =
+    Blockly.bindEvent_(document.body, 'mousemove', this, this.onMouseMove);
+  this.matrixReleaseWrapper_ =
+    Blockly.bindEvent_(document.body, 'mouseup', this, this.onMouseUp);
+  var ledHit = this.checkForLED_(e);
+  if (ledHit > -1) {
+    this.paintStyle_ = this.matrix_.charAt(ledHit) === this.selected_ ? 'clear' : 'fill';
+    this.setLEDNode_(ledHit, this.paintStyle_ === 'fill' ? this.selected_ : '0');
+    this.updateMatrix_();
+  } else {
+    this.paintStyle_ = null;
+  }
+};
+
+Blockly.FieldMatrixColor.prototype.onMouseMove = function(e) {
+  e.preventDefault();
+  if (!this.paintStyle_) return;
+  var led = this.checkForLED_(e);
+  if (led < 0) return;
+  this.setLEDNode_(led, this.paintStyle_ === 'fill' ? this.selected_ : '0');
+};
+
+Blockly.FieldMatrixColor.prototype.clearMatrix_ = function(e) {
+  if (e.button != 0) return;
+  this.setValue(this.zeros_);
+};
+
+Blockly.FieldMatrixColor.prototype.fillMatrix_ = function(e) {
+  if (e.button != 0) return;
+  var filled = '';
+  for (var i = 0; i < this.width_ * this.height_; i++) filled += this.selected_;
+  this.setValue(filled);
+};
+
+Blockly.FieldMatrixColor.prototype.checkForLED_ = function(e) {
+  var bBox = this.matrixStage_.getBoundingClientRect();
+  var nodeSize = Blockly.FieldMatrix.MATRIX_NODE_SIZE;
+  var nodePad = Blockly.FieldMatrix.MATRIX_NODE_PAD;
+  var gutter = Blockly.FieldMatrixColor.LABEL_GUTTER;
+  var dx = e.clientX - bBox.left - gutter;
+  var dy = e.clientY - bBox.top - gutter;
+  var min = nodePad / 2;
+  var maxX = nodeSize * this.width_ + nodePad * (this.width_ + 1) - (nodePad / 2);
+  var maxY = nodeSize * this.height_ + nodePad * (this.height_ + 1) - (nodePad / 2);
+  if (dx < min || dx > maxX || dy < min || dy > maxY) return -1;
+  var xDiv = Math.trunc((dx - nodePad / 2) / (nodeSize + nodePad));
+  var yDiv = Math.trunc((dy - nodePad / 2) / (nodeSize + nodePad));
+  if (xDiv < 0 || xDiv >= this.width_ || yDiv < 0 || yDiv >= this.height_) return -1;
+  return xDiv + (yDiv * this.width_);
+};
+
+Blockly.FieldMatrixColor.prototype.createSwatch_ = function(index) {
+  var size = Blockly.FieldMatrix.MATRIX_NODE_SIZE + 6;
+  var swatch = Blockly.utils.createSvgElement('svg', {
+    'xmlns': 'http://www.w3.org/2000/svg',
+    'version': '1.1',
+    'height': size + 'px',
+    'width': size + 'px'
+  });
+  Blockly.utils.createSvgElement('rect', {
+    'x': 2, 'y': 2, 'width': size - 4, 'height': size - 4,
+    'rx': (size - 4) / 2, 'ry': (size - 4) / 2,
+    'fill': Blockly.FieldMatrixColor.PALETTE[Number(index)],
+    'stroke': index === '1' ? '#A0A0A0' : 'rgba(0,0,0,0.35)',
+    'stroke-width': 1
+  }, swatch);
+  if (index === '0') {
+    Blockly.utils.createSvgElement('path', {
+      'd': 'M6 6 L' + (size - 6) + ' ' + (size - 6) + ' M' + (size - 6) + ' 6 L6 ' + (size - 6),
+      'stroke': '#6B6B6B', 'stroke-width': 2
+    }, swatch);
+  }
+  return swatch;
+};
+
+Blockly.FieldMatrixColor.prototype.updateSwatchSelection_ = function() {
+  if (!this.swatchRects_) return;
+  for (var i = 0; i < Blockly.FieldMatrixColor.SWATCH_ORDER.length; i++) {
+    var isOn = Blockly.FieldMatrixColor.SWATCH_ORDER[i] === this.selected_;
+    this.swatchRects_[i].setAttribute('stroke', isOn ? '#4C97FF' : 'rgba(0,0,0,0.35)');
+    this.swatchRects_[i].setAttribute('stroke-width', isOn ? 3 : 1);
+  }
+};
+
+Blockly.FieldMatrixColor.prototype.createPreset_ = function(pattern) {
+  var cell = 5;
+  var svg = Blockly.utils.createSvgElement('svg', {
+    'xmlns': 'http://www.w3.org/2000/svg',
+    'version': '1.1',
+    'height': (cell * this.height_ + 4) + 'px',
+    'width': (cell * this.width_ + 4) + 'px'
+  });
+  for (var y = 0; y < this.height_; y++) {
+    for (var x = 0; x < this.width_; x++) {
+      var ch = pattern.charAt(y * this.width_ + x);
+      var n = Number(ch);
+      if (isNaN(n) || !Blockly.FieldMatrixColor.PALETTE[n]) n = 0;
+      Blockly.utils.createSvgElement('rect', {
+        'x': x * cell + 2, 'y': y * cell + 2,
+        'width': cell - 1, 'height': cell - 1,
+        'fill': Blockly.FieldMatrixColor.PALETTE[n]
+      }, svg);
+    }
+  }
+  return svg;
+};
+
+Blockly.FieldMatrixColor.prototype.createTextButton_ = function(text, primary) {
+  var button = document.createElement('button');
+  button.textContent = text;
+  button.style.cssText = 'margin:0 4px;padding:4px 16px;border-radius:4px;' +
+    'border:1px solid rgba(0,0,0,0.2);cursor:pointer;font-size:12px;' +
+    (primary ? 'background:#4C97FF;color:#fff;' : 'background:#fff;color:#575E75;');
+  return button;
+};
+
+Blockly.FieldMatrixColor.prototype.makeSwatchHandler_ = function(index) {
+  var self = this;
+  return function(e) {
+    if (e.button != 0) return;
+    self.selected_ = index;
+    self.updateSwatchSelection_();
+  };
+};
+
+Blockly.FieldMatrixColor.prototype.makePresetHandler_ = function(pattern) {
+  var self = this;
+  return function(e) {
+    if (e.button != 0) return;
+    self.setValue(pattern);
+    self.updateMatrix_();
+  };
+};
+
+Blockly.FieldMatrixColor.prototype.showEditor_ = function() {
+  Blockly.DropDownDiv.hideWithoutAnimation();
+  Blockly.DropDownDiv.clearContent();
+  var div = Blockly.DropDownDiv.getContentDiv();
+  var self = this;
+
+  this.valueOnOpen_ = this.matrix_;
+
+  var nodeSize = Blockly.FieldMatrix.MATRIX_NODE_SIZE;
+  var nodePad = Blockly.FieldMatrix.MATRIX_NODE_PAD;
+  var gutter = Blockly.FieldMatrixColor.LABEL_GUTTER;
+
+  var wrapper = document.createElement('div');
+  wrapper.style.cssText = 'display:flex;align-items:flex-start;padding:4px;';
+
+  var paletteDiv = document.createElement('div');
+  paletteDiv.style.cssText = 'display:flex;flex-wrap:wrap;width:' +
+    ((nodeSize + 6) * 2 + 8) + 'px;margin-right:10px;';
+  this.swatchRects_ = [];
+  this.paletteWrappers_ = [];
+  var s, index, swatch;
+  for (s = 0; s < Blockly.FieldMatrixColor.SWATCH_ORDER.length; s++) {
+    index = Blockly.FieldMatrixColor.SWATCH_ORDER[s];
+    swatch = this.createSwatch_(index);
+    this.swatchRects_.push(swatch.childNodes[0]);
+    swatch.style.cursor = 'pointer';
+    paletteDiv.appendChild(swatch);
+    this.paletteWrappers_.push(
+      Blockly.bindEvent_(swatch, 'mousedown', this, this.makeSwatchHandler_(index)));
+  }
+
+  var toolDiv = document.createElement('div');
+  toolDiv.style.cssText = 'display:flex;margin-top:8px;';
+  var fillButton = this.createButton_('#FFFFFF');
+  var clearButton = this.createButton_(this.sourceBlock_.colourSecondary_);
+  fillButton.style.cursor = 'pointer';
+  clearButton.style.cursor = 'pointer';
+  toolDiv.appendChild(fillButton);
+  toolDiv.appendChild(clearButton);
+  paletteDiv.appendChild(toolDiv);
+  wrapper.appendChild(paletteDiv);
+
+  var gridW = nodeSize * this.width_ + nodePad * (this.width_ + 1);
+  var gridH = nodeSize * this.height_ + nodePad * (this.height_ + 1);
+  this.matrixStage_ = Blockly.utils.createSvgElement('svg', {
+    'xmlns': 'http://www.w3.org/2000/svg',
+    'version': '1.1',
+    'height': (gridH + gutter) + 'px',
+    'width': (gridW + gutter) + 'px'
+  }, wrapper);
+
+  var c, t;
+  for (c = 0; c < this.width_; c++) {
+    t = Blockly.utils.createSvgElement('text', {
+      'x': gutter + nodePad + c * (nodeSize + nodePad) + nodeSize / 2,
+      'y': 10, 'fill': '#8C8C8C', 'font-size': '9pt', 'text-anchor': 'middle'
+    }, this.matrixStage_);
+    t.appendChild(document.createTextNode(String(c + 1)));
+  }
+  for (c = 0; c < this.height_; c++) {
+    t = Blockly.utils.createSvgElement('text', {
+      'x': gutter / 2,
+      'y': gutter + nodePad + c * (nodeSize + nodePad) + nodeSize / 2 + 4,
+      'fill': '#8C8C8C', 'font-size': '9pt', 'text-anchor': 'middle'
+    }, this.matrixStage_);
+    t.appendChild(document.createTextNode(String(c + 1)));
+  }
+
+  this.ledButtons_ = [];
+  var i, n;
+  for (i = 0; i < this.height_; i++) {
+    for (n = 0; n < this.width_; n++) {
+      this.ledButtons_.push(Blockly.utils.createSvgElement('rect', {
+        'x': gutter + (nodeSize * n) + (nodePad * (n + 1)) + 'px',
+        'y': gutter + (nodeSize * i) + (nodePad * (i + 1)) + 'px',
+        'width': nodeSize, 'height': nodeSize,
+        'rx': Blockly.FieldMatrix.MATRIX_NODE_RADIUS,
+        'ry': Blockly.FieldMatrix.MATRIX_NODE_RADIUS
+      }, this.matrixStage_));
+    }
+  }
+  div.appendChild(wrapper);
+
+  var presetDiv = document.createElement('div');
+  presetDiv.style.cssText = 'display:flex;overflow-x:auto;max-width:' +
+    (gridW + gutter + (nodeSize + 6) * 2 + 22) + 'px;padding:6px 4px;' +
+    'border-top:1px solid rgba(0,0,0,0.12);';
+  this.presetWrappers_ = [];
+  var p, preset;
+  for (p = 0; p < Blockly.FieldMatrixColor.PRESETS.length; p++) {
+    preset = this.createPreset_(Blockly.FieldMatrixColor.PRESETS[p]);
+    preset.style.cursor = 'pointer';
+    preset.style.marginRight = '6px';
+    presetDiv.appendChild(preset);
+    this.presetWrappers_.push(
+      Blockly.bindEvent_(preset, 'mousedown', this,
+        this.makePresetHandler_(Blockly.FieldMatrixColor.PRESETS[p])));
+  }
+  div.appendChild(presetDiv);
+
+  var actionDiv = document.createElement('div');
+  actionDiv.style.cssText = 'display:flex;justify-content:flex-end;padding:6px 4px 2px;';
+  var okButton = this.createTextButton_('Okay', true);
+  var cancelButton = this.createTextButton_('Cancel', false);
+  actionDiv.appendChild(cancelButton);
+  actionDiv.appendChild(okButton);
+  div.appendChild(actionDiv);
+
+  Blockly.DropDownDiv.setColour(this.sourceBlock_.getColour(),
+      this.sourceBlock_.getColourTertiary());
+  Blockly.DropDownDiv.setCategory(this.sourceBlock_.getCategory());
+  Blockly.DropDownDiv.showPositionedByBlock(this, this.sourceBlock_,
+      this.onEditorHide_.bind(this));
+
+  this.matrixTouchWrapper_ =
+      Blockly.bindEvent_(this.matrixStage_, 'mousedown', this, this.onMouseDown);
+  this.clearButtonWrapper_ =
+      Blockly.bindEvent_(clearButton, 'click', this, this.clearMatrix_);
+  this.fillButtonWrapper_ =
+      Blockly.bindEvent_(fillButton, 'click', this, this.fillMatrix_);
+  this.okWrapper_ = Blockly.bindEvent_(okButton, 'click', this, function() {
+    Blockly.DropDownDiv.hide();
+  });
+  this.cancelWrapper_ = Blockly.bindEvent_(cancelButton, 'click', this, function() {
+    if (self.valueOnOpen_ !== null) self.setValue(self.valueOnOpen_);
+    Blockly.DropDownDiv.hide();
+  });
+
+  this.updateSwatchSelection_();
+  this.updateMatrix_();
+};
+
+/**
+ * Drop the listeners this editor added.
+ *
+ * Not dispose_: that is never called on a field. The only dispose_() call in
+ * Blockly is WidgetDiv's own, and FieldMatrix/FieldAngle/FieldNote/FieldSlider
+ * all define one that never runs. DropDownDiv's onHide callback does run, on
+ * Okay, on Cancel, and on clicking away.
+ * @private
+ */
+Blockly.FieldMatrixColor.prototype.onEditorHide_ = function() {
+  var lists = [this.paletteWrappers_, this.presetWrappers_];
+  for (var l = 0; l < lists.length; l++) {
+    var list = lists[l] || [];
+    for (var i = 0; i < list.length; i++) {
+      Blockly.unbindEvent_(list[i]);
+    }
+  }
+  this.paletteWrappers_ = [];
+  this.presetWrappers_ = [];
+  var singles = ['okWrapper_', 'cancelWrapper_', 'matrixTouchWrapper_',
+    'clearButtonWrapper_', 'fillButtonWrapper_'];
+  for (var s = 0; s < singles.length; s++) {
+    if (this[singles[s]]) {
+      Blockly.unbindEvent_(this[singles[s]]);
+      this[singles[s]] = null;
+    }
+  }
+  this.swatchRects_ = null;
+  this.valueOnOpen_ = null;
+};
+
+Blockly.Field.register('field_matrix_color', Blockly.FieldMatrixColor);
