@@ -282,8 +282,6 @@ Blockly.Arduino.scrub_ = function(block, code) {
   var rootType = block.getRootBlock().type;
   var isArduinoBegin = rootType === 'event_whenarduinobegin' ||
     rootType.endsWith('event_whenarduinobegin');
-  var isMieoStartup = rootType === 'event_whenmieostartsup' ||
-    rootType.endsWith('event_whenmieostartsup');
 
   if (block.getSurroundParent() === null && code !== ""
     && block.type !== 'control_forever') {
