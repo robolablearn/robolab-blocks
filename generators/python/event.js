@@ -35,6 +35,21 @@ Blockly.Python['event_whenmicrobitbegin'] = function(block) {
   return code;
 };
 
+Blockly.Python['event_whenmicropythonbegin'] = function(block) {
+  Blockly.Python.imports_["time"] = "import time";
+  // Wrap time.sleep so the generic "wait _ seconds" control block, which
+  // calls sleep(ms) like the microbit's builtin, also works on plain MicroPython.
+  Blockly.Python.customFunctions_["sleep"] = "def sleep(ms):\n  time.sleep(ms / 1000)\n";
+
+  var code = "";
+  var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  if (!nextBlock) {
+    code += "pass\n";
+  }
+
+  return code;
+};
+
 Blockly.Python['event_whenmicrobitbuttonpressed'] = function(block) {
   Blockly.Python.imports_["microbit"] = "from microbit import *";
 

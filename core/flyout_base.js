@@ -158,7 +158,7 @@ Blockly.Flyout = function(workspaceOptions) {
    * @type {!Array.<string>}
    * @private
    */
-  this.deviceTypeList_ = ['microbit','arduino'];
+  this.deviceTypeList_ = ['microbit','arduino','microPython'];
 };
 
 /**
@@ -537,6 +537,18 @@ Blockly.Flyout.prototype.show = function(xmlList) {
         // updated when different devices are selected.
         if (this.deviceTypeList_.includes(xml.getAttribute('type').split("_")[0])) {
           recycled = -1;
+        }
+
+        // A recycled block keeps the disabled state it was built with. If the
+        // xml now says otherwise -- a block greyed out because the program mode
+        // changed, or un-greyed on the way back -- it has to be rebuilt, or the
+        // flyout shows a stale, still-draggable copy.
+        if (recycled > -1) {
+          var disabledAttr = xml.getAttribute('disabled');
+          var shouldBeDisabled = disabledAttr == 'true' || disabledAttr == 'disabled';
+          if (!!this.recycleBlocks_[recycled].disabled !== shouldBeDisabled) {
+            recycled = -1;
+          }
         }
 
         // If we found a recycled item, reuse the BlockSVG from last time.

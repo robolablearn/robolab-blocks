@@ -90,6 +90,21 @@ Blockly.Python.ORDER_NONE = 99;             // (...)
  */
 Blockly.Python.INDENT = '  ';
 
+/**
+ * Hats whose stack is the main program, so its blocks stay flush left.
+ *
+ * Every other stack ends up inside a function -- a custom block, or the body a
+ * sensor hat is compiled into -- and has to be indented. Getting this backwards
+ * makes sensor hats emit an unindented body after a "def", which is a syntax
+ * error on the board.
+ * @type {Array.<string>}
+ */
+Blockly.Python.MAIN_HATS_ = [
+  'event_whenmicrobitbegin',
+  'event_whenmicropythonbegin',
+  'microPython_mieo_whenMieoStartsUp'
+];
+
 Blockly.Python.firstLoop = true;
 
 /**
@@ -273,12 +288,14 @@ Blockly.Python.scrub_ = function(block, code) {
   }
 
   var codeWithIndent = code;
-  // At this step if block is not surround by a parent and it is not empty,
-  // and it is a hat block, and it is not 'event_whenmicrobitbegin' block.
-  // mean's it is in a function or it is custom function, add indent
-  // at start of every line.
+  // At this step a block with no surround parent is either the body of a custom
+  // function or part of a stack hanging off a hat block. Only the function body
+  // needs indenting - code under a hat block is top level and must stay flush
+  // left, whichever hat it is (event_whenmicrobitbegin, event_whenmicropythonbegin,
+  // a device hat like microPython_mieo_whenMieoStartsUp, ...).
+  var topStackType = block.getTopStackBlock().type;
   if (block.getSurroundParent() === null && code !== "" && block.previousConnection !== null
-    && block.getTopStackBlock().type !== 'event_whenmicrobitbegin') {
+    && Blockly.Python.MAIN_HATS_.indexOf(topStackType) < 0) {
     // Add indent at start except custom function
     if (block.type !== 'procedures_definition'
       && block.type !== 'procedures_prototype') {
